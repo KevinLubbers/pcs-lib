@@ -1,6 +1,7 @@
 import pyautogui
 import time
 import pygetwindow
+import pyperclip
 
 
 def focus_pcs():
@@ -101,8 +102,48 @@ def select_option(option):
     pyautogui.write(option)
     refresh()
 
-def add_price(invoice, msrp, differential = False):
+def check_option(option):
+    select_option(option)
+    tab(5)
+    for _ in range(3):
+        pyautogui.press('right')
+    pyautogui.hotkey('ctrl', 'c')
+    time.sleep(1)
+    copy_option = pyperclip.paste()
+    if option != copy_option:
+        return False
+    
+def check_price(invoice, msrp):
     price()
+    tab(5)
+    for _ in range(3):
+        pyautogui.press('right')
+    pyautogui.hotey('ctrl', 'c')
+    time.sleep(1)
+    copy_invoice = pyperclip.paste()
+    pyautogui.press('right')
+    pyautogui.hotkey('ctrl', 'c')
+    time.sleep(1)
+    copy_msrp = pyperclip.paste()
+    if invoice != copy_invoice or msrp != copy_msrp:
+        return False
+    else:
+        return True
+
+def add_price_compare(invoice, msrp, differential = False):
+    check = check_price(invoice, msrp)
+    if not check:
+        delete()
+        add_price_no_compare(invoice, msrp, True)
+    #else do nothing, price is already correct
+    
+
+def add_price_no_compare(invoice, msrp, correct_screen = False, differential = False):
+    #checking if you're already inside price screen or need to go there
+    #default acts as if you are on the options screen
+    #must
+    if not correct_screen:
+        price()
     add()
     tab()
     pyautogui.write(invoice)
