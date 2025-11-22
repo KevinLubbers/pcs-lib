@@ -9,6 +9,7 @@ def focus_pcs():
     pcs_window[0].activate()
     pcs_window[0].maximize()
 
+#Start Basic Building Block Functions
 def refresh():
     pyautogui.press('f5')
     time.sleep(1)
@@ -60,6 +61,8 @@ def options():
     #might need to add wait here
     pyautogui.press('o')
     time.sleep(1)
+#end Basic Building Blocks
+
 
 #Usable inside of Options screen
 def price():
@@ -87,7 +90,7 @@ def paint_group():
     time.sleep(1)
 #End of Options Screen
 
-
+#Start ACTION Functions
 def select_model(model_code, year, down = 1):
     pyautogui.write(model_code)
     tab(2)
@@ -96,14 +99,34 @@ def select_model(model_code, year, down = 1):
     tab(4)
     for _ in range(down):
         pyautogui.press('down')
-    options()
+    check = check_model(model_code)
+    if check:
+        options()
+    else:
+        #what to do when model not found?
+        return False
+    
+
+def check_model(model_code):
+    for _ in range(3):
+        pyautogui.press('right')
+    pyautogui.hotkey('ctrl', 'c')
+    time.sleep(1)
+    copy_model = pyperclip.paste()
+    if model_code != copy_model:
+        return False
+    else:
+        return True
 
 def select_option(option):
     pyautogui.write(option)
     refresh()
+    check = check_option(option)
+    if not check:
+        #what to do when option not found?
+        return False
 
 def check_option(option):
-    select_option(option)
     tab(5)
     for _ in range(3):
         pyautogui.press('right')
@@ -112,10 +135,18 @@ def check_option(option):
     copy_option = pyperclip.paste()
     if option != copy_option:
         return False
+    else:
+        return True
     
-def check_price(invoice, msrp):
+def add_option(option):
+    #if option doesn't exist, add it
+    pass
+    
+def check_price(invoice, msrp, down):
     price()
     tab(5)
+    for _ in range(down):
+        pyautogui.press('down')
     for _ in range(3):
         pyautogui.press('right')
     pyautogui.hotey('ctrl', 'c')
@@ -130,15 +161,16 @@ def check_price(invoice, msrp):
     else:
         return True
 
-def add_price_compare(invoice, msrp, differential = False):
-    check = check_price(invoice, msrp)
+def add_price_compare(invoice, msrp, down = 1, differential = False):
+    check = check_price(invoice, msrp, down)
     if not check:
         delete()
-        add_price_no_compare(invoice, msrp, True)
+        add_price(invoice, msrp, True)
     #else do nothing, price is already correct
+    back()
     
 
-def add_price_no_compare(invoice, msrp, correct_screen = False, differential = False):
+def add_price(invoice, msrp, correct_screen = False, differential = False):
     #checking if you're already inside price screen or need to go there
     #default acts as if you are on the options screen
     #must
@@ -157,3 +189,4 @@ def add_price_no_compare(invoice, msrp, correct_screen = False, differential = F
     time.sleep(1)
     back()
 
+#End ACTION Functions
