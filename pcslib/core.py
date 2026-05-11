@@ -138,9 +138,16 @@ def check_option(option):
     else:
         return True
     
-def add_option(option):
-    #if option doesn't exist, add it
-    pass
+def add_option(option, name):
+    
+    add()
+    pyautogui.write(option)
+    tab()
+    pyautogui.write(name)
+    tab()
+    pyautogui.press('enter')
+
+    time.sleep(1)
     
 def check_price(invoice, msrp, down):
     price()
