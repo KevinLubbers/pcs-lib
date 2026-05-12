@@ -130,8 +130,8 @@ def select_option(option):
         return False
 
 def check_option(option):
-    tab(5)
-    for _ in range(3):
+    tab(7)
+    for _ in range(1):
         pyautogui.press('right')
     pyautogui.hotkey('ctrl', 'c')
     time.sleep(4)
