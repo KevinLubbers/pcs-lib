@@ -105,12 +105,8 @@ def select_model(model_code, year, down = 1):
     tab(4)
     for _ in range(down):
         pyautogui.press('down')
-    check = check_model(model_code)
-    if check:
-        options()
-    else:
-        #what to do when model not found?
-        return False
+    #check = check_model(model_code)
+    options()
     
 
 def check_model(model_code):
@@ -120,7 +116,6 @@ def check_model(model_code):
     pyautogui.hotkey('ctrl', 'c')
     time.sleep(2)
     copy_model = pyperclip.paste()
-    print(copy_model)
     if model_code != copy_model:
         return False
     else:
@@ -139,7 +134,7 @@ def check_option(option):
     for _ in range(3):
         pyautogui.press('right')
     pyautogui.hotkey('ctrl', 'c')
-    time.sleep(1)
+    time.sleep(4)
     copy_option = pyperclip.paste()
     if option != copy_option:
         return False
