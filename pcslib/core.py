@@ -50,6 +50,10 @@ def back_reset():
     for _ in range(6):
         pyautogui.hotkey('shift' , 'tab')
     time.sleep(1)
+def option_back_reset():
+    for _ in range(7):
+        pyautogui.hotkey('shift' , 'tab')
+    time.sleep(1)
 
 def tab(i = 1):
     for _ in range(i):
