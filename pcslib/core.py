@@ -116,9 +116,11 @@ def select_model(model_code, year, down = 1):
 def check_model(model_code):
     for _ in range(4):
         pyautogui.press('right')
-    pyautogui.hotkey('ctrl', 'c')
     time.sleep(1)
+    pyautogui.hotkey('ctrl', 'c')
+    time.sleep(2)
     copy_model = pyperclip.paste()
+    print(copy_model)
     if model_code != copy_model:
         return False
     else:
