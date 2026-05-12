@@ -46,6 +46,11 @@ def back(i = 1):
         pyautogui.press('c')
         time.sleep(1)
 
+def back_reset():
+    for _ in range(6):
+        pyautogui.hotkey('shift' , 'tab')
+    time.sleep(1)
+
 def tab(i = 1):
     for _ in range(i):
         pyautogui.press('tab')
@@ -59,6 +64,7 @@ def options():
     pyautogui.press('alt')
     pyautogui.press('s')
     #might need to add wait here
+    time.sleep(1)
     pyautogui.press('o')
     time.sleep(1)
 #end Basic Building Blocks
@@ -108,7 +114,7 @@ def select_model(model_code, year, down = 1):
     
 
 def check_model(model_code):
-    for _ in range(3):
+    for _ in range(4):
         pyautogui.press('right')
     pyautogui.hotkey('ctrl', 'c')
     time.sleep(1)
