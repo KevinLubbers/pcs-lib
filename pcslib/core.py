@@ -125,21 +125,22 @@ def check_model(model_code):
     else:
         return True
 
-def select_option(option):
+def select_option(option, name, category, invoice, msrp):
     pyautogui.write(option)
     refresh()
-    check = check_option(option)
+    check = check_option(option, name, category, invoice, msrp)
     if not check:
         #what to do when option not found?
         return False
 
-def check_option(option):
+def check_option(option, name, category, invoice, msrp):
     tab(7)
     for _ in range(1):
         pyautogui.press('right')
     pyautogui.hotkey('ctrl', 'c')
     time.sleep(4)
     copy_option = pyperclip.paste()
+    print(copy_option)
     if option != copy_option:
         return False
     else:
