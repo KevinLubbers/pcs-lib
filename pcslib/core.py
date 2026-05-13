@@ -158,9 +158,9 @@ def add_option(option, name, category, invoice, msrp):
     close()
     price()
     tab()
-    pyautogui.write(invoice)
+    pyautogui.write(str(invoice))
     tab()
-    pyautogui.write(msrp)
+    pyautogui.write(str(msrp))
     pyautogui.press('enter')
 
     time.sleep(1)
@@ -195,9 +195,9 @@ def add_price(invoice, msrp, correct_screen = False, differential = False):
         price()
     add()
     tab()
-    pyautogui.write(invoice)
+    pyautogui.write(str(invoice))
     tab()
-    pyautogui.write(msrp)
+    pyautogui.write(str(msrp))
     if differential:
         tab()
         pyautogui.press('down')
