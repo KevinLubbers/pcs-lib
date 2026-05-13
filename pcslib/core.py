@@ -118,8 +118,8 @@ def check_model(model_code):
         pyautogui.press('right')
     time.sleep(1)
     pyautogui.hotkey('ctrl', 'c')
-    time.sleep(2)
-    copy_model = pyperclip.paste()
+    time.sleep(4)
+    copy_model = pyperclip.paste().strip()
     if model_code != copy_model:
         return False
     else:
@@ -138,8 +138,7 @@ def check_option(option, name, category, invoice, msrp):
         pyautogui.press('right')
     pyautogui.hotkey('ctrl', 'c')
     time.sleep(4)
-    copy_option = pyperclip.paste()
-    print(copy_option)
+    copy_option = pyperclip.paste().strip()
     if option != copy_option:
         add_option(option, name, category, invoice, msrp)
     else:
@@ -177,7 +176,7 @@ def check_price(invoice, msrp, down = 1):
         pyautogui.press('right')
     pyautogui.hotey('ctrl', 'c')
     time.sleep(4)
-    copy_invoice = pyperclip.paste()
+    copy_invoice = pyperclip.paste().strip()
     pyautogui.press('right')
     pyautogui.hotkey('ctrl', 'c')
     time.sleep(4)
