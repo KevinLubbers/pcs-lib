@@ -125,13 +125,12 @@ def check_model(model_code):
     else:
         return True
 
+
+
 def select_option(option, name, category, invoice, msrp):
     pyautogui.write(option)
     refresh()
-    check = check_option(option, name, category, invoice, msrp)
-    if not check:
-        #what to do when option not found?
-        return False
+    check_option(option, name, category, invoice, msrp)
 
 def check_option(option, name, category, invoice, msrp):
     tab(7)
@@ -142,48 +141,52 @@ def check_option(option, name, category, invoice, msrp):
     copy_option = pyperclip.paste()
     print(copy_option)
     if option != copy_option:
-        return False
+        add_option(option, name, category, invoice, msrp)
     else:
-        return True
-    
-def add_option(option, name):
+        check_price(invoice, msrp)
+
+def add_option(option, name, category, invoice, msrp):
     
     add()
     pyautogui.write(option)
     tab()
     pyautogui.write(name)
     tab()
+    pyautogui.write(category)
+    tab()
+    pyautogui.write('MFG')
+    pyautogui.press('enter')
+    close()
+    price()
+    tab()
+    pyautogui.write(invoice)
+    tab()
+    pyautogui.write(msrp)
     pyautogui.press('enter')
 
     time.sleep(1)
-    
-def check_price(invoice, msrp, down):
+
+
+
+def check_price(invoice, msrp, down = 1):
     price()
-    tab(5)
+    tab(3)
     for _ in range(down):
         pyautogui.press('down')
-    for _ in range(3):
+    for _ in range(4):
         pyautogui.press('right')
     pyautogui.hotey('ctrl', 'c')
-    time.sleep(1)
+    time.sleep(4)
     copy_invoice = pyperclip.paste()
     pyautogui.press('right')
     pyautogui.hotkey('ctrl', 'c')
-    time.sleep(1)
+    time.sleep(4)
     copy_msrp = pyperclip.paste()
     if invoice != copy_invoice or msrp != copy_msrp:
-        return False
-    else:
-        return True
-
-def add_price_compare(invoice, msrp, down = 1, differential = False):
-    check = check_price(invoice, msrp, down)
-    if not check:
         delete()
         add_price(invoice, msrp, True)
-    #else do nothing, price is already correct
-    back()
-    
+    else:
+        back()
 
 def add_price(invoice, msrp, correct_screen = False, differential = False):
     #checking if you're already inside price screen or need to go there
@@ -204,4 +207,12 @@ def add_price(invoice, msrp, correct_screen = False, differential = False):
     time.sleep(1)
     back()
 
+def add_price_compare(invoice, msrp, down = 1, differential = False):
+    check = check_price(invoice, msrp, down)
+    if not check:
+        delete()
+        add_price(invoice, msrp, True)
+    #else do nothing, price is already correct
+    back()
+    
 #End ACTION Functions
