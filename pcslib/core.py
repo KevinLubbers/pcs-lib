@@ -214,4 +214,30 @@ def add_price_compare(invoice, msrp, down = 1, differential = False):
     #else do nothing, price is already correct
     back()
     
+
+
+def add_paints(paints):
+    pyautogui.write("EXT1")
+    refresh()
+    paint_group()
+    add()
+    for paint in paints:
+        pyautogui.write(paint)
+        pyautogui.press('enter')
+        pyautogui.press('enter')
+    close()
+    back()
+
+def add_interiors(interiors):
+    pyautogui.write("INT1")
+    refresh()
+    paint_group()
+    add()
+    for interior in interiors:
+        pyautogui.write(interior)
+        pyautogui.press('enter')
+        pyautogui.press('enter')
+        time.sleep(1)
+    close()
+    back()
 #End ACTION Functions
