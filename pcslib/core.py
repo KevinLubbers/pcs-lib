@@ -174,13 +174,13 @@ def check_price(invoice, msrp, down = 1):
         pyautogui.press('down')
     for _ in range(4):
         pyautogui.press('right')
-    pyautogui.hotey('ctrl', 'c')
+    pyautogui.hotkey('ctrl', 'c')
     time.sleep(4)
-    copy_invoice = pyperclip.paste().strip()
+    copy_invoice = float(pyperclip.paste().strip())
     pyautogui.press('right')
     pyautogui.hotkey('ctrl', 'c')
     time.sleep(4)
-    copy_msrp = pyperclip.paste()
+    copy_msrp = float(pyperclip.paste().strip())
     if invoice != copy_invoice or msrp != copy_msrp:
         delete()
         add_price(invoice, msrp, True)
