@@ -60,8 +60,7 @@ def tab(i = 1):
         pyautogui.press('tab')
 
 def close():
-    pyautogui.press('alt')
-    pyautogui.press('c')
+    pyautogui.hotkey('alt', 'c')
     time.sleep(1)
 
 def options():
