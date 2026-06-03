@@ -1,26 +1,18 @@
 # PCS Automation Library
 
-A Python automation library for interacting with the **PCS Maintenance** application through keyboard-driven workflows.
+A Python automation library for interacting with the **PCS Maintenance** application through keyboard-driven actions.
 
-This library uses PyAutoGUI to automate common maintenance tasks such as:
+This library uses PyAutoGUI to automate common database tasks such as:
 
-* Selecting models
+* Selecting and validating models
 * Managing options
-* Updating pricing
-* Adding paint and interior groups
+* Validate if an option exists
+* Create the option if it doesn't exist
+* Update pricing
+* Adding paints and interiors to their respective groups
 * Navigating PCS menus
-* Validating existing records
-
-## Features
-
-* Window focusing and activation
-* Automated menu navigation
-* Model selection and validation
-* Option creation and maintenance
-* Invoice and MSRP price management
-* Paint group management
-* Interior group management
 * Reusable navigation helper functions
+* Validating existing price records
 
 ## Requirements
 
@@ -41,7 +33,7 @@ pip install pyautogui pygetwindow pyperclip
 ## Quick Start
 
 ```python
-from pcs_automation import *
+import pcslib
 
 focus_pcs()
 
@@ -136,7 +128,7 @@ Confirms the current action.
 
 ### `select_model(model_code, year, down=1)`
 
-Selects a model and opens the Options screen.
+Selects a model and opens the Options screen. (down) parameter is for Harley-Davidson California / 49S differentiation or any other model with multiple MEGs
 
 #### Example
 
@@ -196,7 +188,11 @@ Validates invoice and MSRP values.
 
 ### `add_price(invoice, msrp, correct_screen=False, differential=False)`
 
-Creates a new price record.
+Creates a new price record. Default parameters give the user flexibility when using this function
+
+correct_screen parameter is for situations where the user isn't already in the pricing screen  
+
+differential parameter is for setting up differential price records
 
 #### Differential Pricing
 
@@ -210,7 +206,7 @@ add_price(
 
 ### `add_price_compare(invoice, msrp)`
 
-Compares existing pricing and updates when necessary.
+Compares existing pricing and updates if necessary.
 
 ## Paint Groups
 
@@ -259,18 +255,9 @@ PCS Maintenance
 
 * Clipboard validation relies on `pyperclip`.
 
-## Limitations
-
-* Windows only.
-* UI automation is sensitive to PCS layout changes.
-* Running the automation while actively using the keyboard or mouse may interfere with execution.
-* No built-in error handling for missing windows or unexpected dialogs.
 
 ## Future Improvements
 
 * Configurable wait times
 * Logging support
-* Exception handling
 * Screen-state validation
-* Unit tests
-* Configurable PCS window title detection
