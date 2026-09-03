@@ -170,6 +170,8 @@ def check_option(option, name, category, invoice, msrp):
 
 def add_option(option, name, category, invoice, msrp):
     
+    time.sleep(.5)
+    
     add()
     pyautogui.write(option)
     tab()
