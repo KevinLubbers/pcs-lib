@@ -110,6 +110,31 @@ def select_model(model_code, year, down = 1):
         pyautogui.press('down')
     #check = check_model(model_code)
     options()
+
+def get_all_options():
+    tab(7)
+    time.sleep(1)
+    #highlighting all option codes and names and copying to clipboard
+    pyautogui.press('right')
+    pyautogui.keyDown('shift')
+    pyautogui.press('right')
+    pyautogui.press('pagedown')
+    pyautogui.press('pagedown')
+    pyautogui.press('pagedown')
+    pyautogui.press('pagedown')
+    pyautogui.keyUp('shift')
+    time.sleep(1)
+    pyautogui.hotkey('ctrl', 'c')
+    time.sleep(2)
+    copy_options = pyperclip.paste().strip()
+    lookup = []
+    #separate the code and name from the clipboard data
+    for line in copy_options.splitlines():
+        code, name = line.split(maxsplit=1)
+        lookup.append((code, name))
+    #reset cursor to option input field
+    option_back_reset()
+    return lookup
     
 
 def check_model(model_code):
@@ -165,7 +190,26 @@ def add_option(option, name, category, invoice, msrp):
 
     time.sleep(1)
 
+#Same Functions repeated but WITHOUT category and name
+#Used for Stellantis PDF Extractor
 
+def stellantis_select_option(option, invoice, msrp):
+    pyautogui.write(option)
+    refresh()
+    stellantis_check_option(option, invoice, msrp)
+
+def stellantis_check_option(option, invoice, msrp):
+    tab(7)
+    for _ in range(1):
+        pyautogui.press('right')
+    pyautogui.hotkey('ctrl', 'c')
+    time.sleep(2)
+    copy_option = pyperclip.paste().strip()
+    if option != copy_option:
+        return False
+    else:
+        check_price(invoice, msrp)
+#end Stellantis repeated functions
 
 def check_price(invoice, msrp, down = 1):
     price()
