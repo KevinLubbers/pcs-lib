@@ -193,12 +193,12 @@ def add_option(option, name, category, invoice, msrp):
 #Same Functions repeated but WITHOUT category and name
 #Used for Stellantis PDF Extractor
 
-def stellantis_select_option(option, invoice, msrp):
+def stellantis_select_option(option, invoice, msrp, differential = False):
     pyautogui.write(option)
     refresh()
-    stellantis_check_option(option, invoice, msrp)
+    return stellantis_check_option(option, invoice, msrp, differential)
 
-def stellantis_check_option(option, invoice, msrp):
+def stellantis_check_option(option, invoice, msrp, differential = False):
     tab(7)
     for _ in range(1):
         pyautogui.press('right')
@@ -208,10 +208,13 @@ def stellantis_check_option(option, invoice, msrp):
     if option != copy_option:
         return False
     else:
-        check_price(invoice, msrp)
+        if not differential:
+            check_price(invoice, msrp)
+        else:
+            check_price(invoice, msrp, down = 1)
 #end Stellantis repeated functions
 
-def check_price(invoice, msrp, down = 1):
+def check_price(invoice, msrp, down = 0):
     price()
     tab(3)
     for _ in range(down):
@@ -226,7 +229,8 @@ def check_price(invoice, msrp, down = 1):
     time.sleep(2)
     copy_msrp = float(pyperclip.paste().strip())
     if invoice != copy_invoice or msrp != copy_msrp:
-        delete()
+        if down == 0:
+            delete()
         add_price(invoice, msrp, True)
     else:
         back()
