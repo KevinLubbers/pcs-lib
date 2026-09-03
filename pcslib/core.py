@@ -209,12 +209,12 @@ def stellantis_check_option(option, invoice, msrp, differential = False):
         return False
     else:
         if not differential:
-            check_price(invoice, msrp)
+            check_price(invoice, msrp, 0, differential)
         else:
-            check_price(invoice, msrp, down = 1)
+            check_price(invoice, msrp, 1, differential)
 #end Stellantis repeated functions
 
-def check_price(invoice, msrp, down = 0):
+def check_price(invoice, msrp, down = 0, differential = False):
     price()
     tab(3)
     for _ in range(down):
@@ -231,7 +231,7 @@ def check_price(invoice, msrp, down = 0):
     if invoice != copy_invoice or msrp != copy_msrp:
         if down == 0:
             delete()
-        add_price(invoice, msrp, True)
+        add_price(invoice, msrp, True, differential)
     else:
         back()
 
@@ -258,7 +258,7 @@ def add_price_compare(invoice, msrp, down = 1, differential = False):
     check = check_price(invoice, msrp, down)
     if not check:
         delete()
-        add_price(invoice, msrp, True)
+        add_price(invoice, msrp, True, differential)
     #else do nothing, price is already correct
     back()
     
