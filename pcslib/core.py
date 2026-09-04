@@ -194,6 +194,10 @@ def add_option(option, name, category, invoice, msrp):
 
 #Same Functions repeated but WITHOUT category and name
 #Used for Stellantis PDF Extractor
+def stellantis_select_and_delete_option(option):
+    pyautogui.write(option)
+    refresh()
+    delete()
 
 def stellantis_select_option(option, invoice, msrp, differential = False):
     pyautogui.write(option)
